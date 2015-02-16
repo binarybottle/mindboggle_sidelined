@@ -1,0 +1,863 @@
+// --------------------------- RicGyralSpan.cpp ------------------------
+/*! \file
+Implementation file for Peter K's RicGyralSpan scheme.
+Copyright (C) 2009 by Bill Rogers - Research Imaging Center - UTHSCSA
+
+This program calculates the gyral thickness by gyrus. Three input files are
+requires and they all need to come from a single white matter mesh. A white
+matter mesh. A texture
+where the value for each mesh vertex is an index to gyral name is necessary
+along with a text file containing gyral names and index values. The gyral
+texture file may contain several textures. Generally, texture 2 (mode 2)
+contains the gyral index values.
+
+Per gyrus thickness values are output to stdout and to a text file.
+
+Command line switches
+
+-g		gyral arg file
+
+-n		gyral name
+
+--sm	skeletal mesh
+
+--sn	subject name
+
+-o		output file base name
+
+-v		verbose output
+
+--bv	output for BrainVisa
+
+ */
+
+
+using namespace std;
+#include <iostream>
+#include <cstdlib>
+#include <stdio.h>
+#include <time.h>
+#include <math.h>
+#include <tclap/config.h>
+#include <tclap/CmdLine.h>
+#include <RicGraph.h>
+#include <RicMesh.h>
+#include <RicTexture.h>
+#include <RicUtil.h>
+
+typedef struct { int idx;
+			string name;
+			double sum;
+			double sumdev;
+			double avg;
+			double stddev;
+			int n;
+			} gstruct;
+
+#define MAXGYRI	100
+
+/// flags for polygon edges
+#define EDGE0 1
+#define EDGE1 2
+#define EDGE2 4
+#define ALLEDGE 7
+
+void WriteLineAsMesh(vertex *lpnts, int npnts, string filename);
+int CheckForUnsharedEdge(RicMesh *m, int pidx, int eflag, int *i0, int *i1);
+
+int main(int argc, char *argv[])
+{
+	///////// command line variables /////////////////
+
+	string gyral_name;			// name of gyrus to measure
+	string gyral_arg_name;		// name of arg file for gyri
+	string skel_name;			// name of  gyral skeleton mesh
+	string subj_name;			// subject name
+	string outname;				// base name for output files
+	bool verbose;				// if true output more stuff on stdout
+	bool brainvisa;			// if true output stuff for BrainVisa
+	string filename;
+
+	///////// read in the command line - tclap ///////////////
+
+	// Every thing is wrapped in a try block
+	try
+	{
+		// Program description
+		TCLAP::CmdLine cmd("Peter K's Gyral Thickness Measurement Program", ' ', "0.5");
+
+		// gyrus name
+		TCLAP::ValueArg<string> gname( "n","n", "Gyrus name", true, "", "string");
+		cmd.add(gname);
+
+		// gyral arg file
+		TCLAP::ValueArg<string> garg( "g","g", "Gyral arg file", true, "", "string");
+		cmd.add(garg);
+
+		// subject name
+		TCLAP::ValueArg<string> sname( "s","sn", "Subject name", false, "", "string");
+		cmd.add(sname);
+
+		// gyral skeleton mesh name
+		TCLAP::ValueArg<string> skname( "","sm", "Gyral skeleton mesh name", false, "", "string");
+		cmd.add(skname);
+
+		// output file base name
+		TCLAP::ValueArg<string> oname( "o","o", "Base output file name", false, \
+										"", "string");
+		cmd.add(oname);
+
+
+		TCLAP::SwitchArg bv( "","bv", "BrainVisa output", false);
+		cmd.add(bv);
+
+		TCLAP::SwitchArg ver( "v","verbose", "Verbose output on stdout", false);
+		cmd.add(ver);
+
+		// parse the command line
+		cmd.parse( argc, argv );
+
+		// copy command line variable to program variables
+		gyral_name = gname.getValue();
+		gyral_arg_name = garg.getValue();
+		skel_name = skname.getValue();
+		outname = oname.getValue();
+		subj_name = sname.getValue();
+		verbose = ver.getValue();
+		brainvisa = bv.getValue();
+
+	}
+	catch (TCLAP::ArgException &e) // catch exceptions - command line mistakes
+	{
+		cout << " Command Line Error " << e.error() << " for arg " << e.argId() << endl;
+	}
+
+///////////////////////////////////////////////////////////////////////////////
+/// Step 1 - Read in files - check to see that specified gyrus is in the graph
+///	file. Also do sanity checks to make sure we have valid data to work with
+
+	// read in the graph file
+	RicGraph graph((char*)gyral_arg_name.c_str());
+	if ( graph.nnodes < 1 )
+	{
+		cout << "Invalid graph file " << gyral_arg_name << endl;
+		exit(1);
+	}
+
+	// check to see that the gyrus specified is in graph file
+	int n;
+	if ( (n=graph.FindNodeNameExact(gyral_name)) >= 0 )
+	{
+		cout << "Found " << gyral_name << " at index " << n << endl;
+	}
+	else
+	{
+		cout << "Did not find " << gyral_name << " in " << gyral_arg_name << endl;
+		exit(1);
+	}
+
+	// read in the mesh specified by the gyral name
+	string gfile = graph.nodes[n].Tmtktri_filename + ".mesh";
+	RicMesh gyral_mesh((char*)gfile.c_str());
+	if ( gyral_mesh.v_size == 0 )
+	{
+		cout << "Invalid gyral mesh file " << gfile << endl;
+		exit(1);
+	}
+	if ( gyral_mesh.p_dim != 3 )
+	{
+		cout << "Gyral mesh file must only contain triangles " << gfile << endl;
+		exit(1);
+	}
+
+	// read in gyral skeleton mesh
+	RicMesh skel_mesh((char*)skel_name.c_str());
+	if ( skel_mesh.v_size == 0 )
+	{
+		cout << "Invalid gyral skeleton mesh file " << skel_name << endl;
+		exit(1);
+	}
+	if ( skel_mesh.p_dim != 3 )
+	{
+		cout << "Gyral skeleton mesh file must only contain triangles " << skel_name << endl;
+		exit(1);
+	}
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+/// Step 2 - Find the outside edge of the gyrus by searching for all of the
+/// polygon edges that are not shared with any other polygon. All these edges
+/// will be put into a list for sorting.
+
+	// make a list to hold all possible edge vertex indices
+	int listsize = gyral_mesh.v_size;
+	int *list0 = new int [listsize];	// first point of edge
+	int *list1 = new int [listsize];	// end point of edge
+	int nedge = 0;	// edge counter
+
+	// Check all polygons for unshared edges - with a triangle there are
+	// three cases. Save the end point indices of the edges.
+	int idx0,idx1;
+	for ( int i=0 ; i<gyral_mesh.p_size ; ++i )
+	{
+		if ( CheckForUnsharedEdge(&gyral_mesh, i, EDGE0, &idx0, &idx1) )
+		{
+			list0[nedge] = idx0;
+			list1[nedge++] = idx1;
+			gyral_mesh.polygons[i].labeled = EDGE0;
+		}
+		if ( CheckForUnsharedEdge(&gyral_mesh, i, EDGE1, &idx0, &idx1) )
+		{
+			list0[nedge] = idx0;
+			list1[nedge++] = idx1;
+			gyral_mesh.polygons[i].labeled = EDGE1;
+		}
+		if ( CheckForUnsharedEdge(&gyral_mesh, i, EDGE2, &idx0, &idx1) )
+		{
+			list0[nedge] = idx0;
+			list1[nedge++] = idx1;
+			gyral_mesh.polygons[i].labeled = EDGE2;
+		}
+	}
+
+///////////////////////////////////////////////////////////////////////////////
+/// Step 3 - Starting with the first unshared edge, sort the edge vertices to
+/// make a connected line around the outside edge of the gyrus.
+
+	// make a vertex list big enough for all cases
+	vertex *vlist = new vertex[listsize];
+	int cver; // current vertex
+
+	// use the two points from the first edge as the starting point
+	cver = list0[0];
+	vlist[0] = gyral_mesh.vertices[cver];
+	cver = list1[0];
+	vlist[1] = gyral_mesh.vertices[cver];
+	list0[0] = list1[0] = -1; // flag used points so they will not be reused.
+
+	bool notfound = false;
+	for ( int i=2 ; i<nedge ; ++i )
+	{
+		// Try all combinations. Not elegant but plenty fast.
+		// Find the next edge that has a common point with the current vertex.
+		// The end point of the next edge will be the new current point.
+		notfound = true;
+		for ( int j=0 ; j<nedge ; ++j )
+		{
+			if ( list0[j] == cver )
+			{
+				cver = list1[j];
+				list0[j] = list1[j] = -1;
+				vlist[i] = gyral_mesh.vertices[cver];
+				notfound = false;
+				break;
+			}
+			else if ( list1[j] == cver )
+			{
+				cver = list0[j];
+				list0[j] = list1[j] = -1;
+				vlist[i] = gyral_mesh.vertices[cver];
+				notfound = false;
+				break;
+			}
+		}
+
+		// if no other connected edges found then exit the loop
+		if ( notfound )
+		{
+			nedge = i;
+			break;
+		}
+	}
+
+	if ( outname.length() > 0 )
+		filename = outname + "_edge.mesh";
+	else
+		filename = gyral_name + "_edge.mesh";
+
+	WriteLineAsMesh(vlist, nedge, (char*)filename.c_str());
+
+	cout << "Number of points " << nedge << endl;
+
+//// Step 4 ///////////////////////////////////////////////////////////////////
+
+	// load another copy of gyral mesh for shrinking
+	float sdist=0.5f;
+	float mindist=1000;
+	float dpmin = -0.75f;
+	RicMesh shrunk((char*)gfile.c_str());
+	int count=0, oldcount=0;
+	vertex v0,v1;
+	vertex n0,n1;
+	do
+	{
+		oldcount = count;
+
+		// shrink the mesh by the length and direction of the normals
+		for ( int i=0; i<shrunk.v_size; ++i )
+		{
+			vertex sv = shrunk.normals[i];
+			sv.multiply(0.1);
+			shrunk.vertices[i].subtract(sv);
+		}
+
+		// check to see if it has shrunk to limit
+
+		for ( int i=0; i<shrunk.v_size-1; ++i )
+		{
+
+			v0 = shrunk.vertices[i];
+			n0 = shrunk.normals[i];
+			for ( int j=i+1 ; j<shrunk.v_size ; ++j)
+			{
+				// skip if same point
+				if ( i==j )
+					continue;
+
+				v1 = shrunk.vertices[j];
+				n1 = shrunk.normals[j];
+
+				// see if dot product means that the normals of the two
+				// vertices are pointing away from each other
+				float dp = n0.dot(n1);
+				if ( dp > dpmin )
+					continue;	// skip of dot product grater than min
+
+				// see if the the vertices are within the minimum distance
+				float d = dist(v0.pnt,v1.pnt);
+				if ( d < mindist )
+				{
+					mindist = d;
+				}
+			}
+		}
+
+		++count;
+	}while( mindist > sdist );
+
+
+	if ( outname.length() > 0 )
+		filename = outname + "_shrunk.mesh";
+	else
+		filename = gyral_name + "_shrunk.mesh";
+	shrunk.Write((char*)filename.c_str());
+
+
+//// Step 5///////////////////////////////////////////////////////////////////
+
+	// find vertices that have normals pointing to on another.
+	// first find normals that have opposite directions as measured by dot product
+	// second find the vertices that meet the normal criteria that are closest
+
+	// resample mesh
+	RicMesh *gyral_mesh2 = gyral_mesh.super_sample(0.25);
+
+	float *mind = new float[gyral_mesh2->v_size];
+	float *minnor = new float[gyral_mesh2->v_size];
+	int *elist = new int[gyral_mesh2->v_size];
+	dpmin = -0.75f;
+
+	// initialize
+	for ( int i=0 ; i<gyral_mesh2->v_size ; ++i )
+	{
+		mind[i] = minnor[i] = 10000;
+		elist[i] = 0;
+	}
+
+	count=0;
+	for ( int i=0; i<gyral_mesh2->v_size; ++i )
+	{
+
+		v0 = gyral_mesh2->vertices[i];
+		n0 = gyral_mesh2->normals[i];
+		vertex pv = v0;
+		vertex pn = n0;
+		pn.multiply(0.8);
+		pv.add(pn);
+
+		for ( int j=i+1 ; j<gyral_mesh2->v_size ; ++j)
+		{
+			v1 = gyral_mesh2->vertices[j];
+			n1 = gyral_mesh2->normals[j];
+
+			// see if dot product means that the normals of the two
+			// vertices are pointing away from each other
+			float dp = n0.dot(n1);
+			if ( dp < dpmin )
+			{
+				// see if the the vertices are within the minimum distance
+				float d = dist(v0.pnt,v1.pnt);
+
+				if ( d < mind[i] )
+				{
+					// now see if they are pointing at each other
+					float pd = dist(pv.pnt,v1.pnt);
+					if ( pd > d )
+					{
+						// now check the dot product of the connecting line
+						vertex con = v1;
+						con.subtract(v0);
+						con.normalize();
+						float  dp2 = con.dot(n0);
+						if ( dp2 < -0.5 ) // same direction
+						{
+
+							minnor[i] = dp;
+							mind[i] = d;
+							elist[i] = j;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// make a mesh showing connecting lines
+	int cvpoly_size = gyral_mesh2->v_size;
+	RicMesh cv_mesh(2*cvpoly_size, 2*cvpoly_size, cvpoly_size, 2);
+
+	// populate mesh with short vectors using gm mesh points
+	float maxlen = 12;
+	float avg_t=0, std_t=0;
+	int navg = 0;
+	for ( int i=0 ; i<cvpoly_size ; ++i )
+	{
+		cv_mesh.assign_node(2*i, gyral_mesh2->vertices[i]);
+		cv_mesh.assign_normal(2*i, gyral_mesh2->normals[i]);
+		if ( elist[i] > 0 && mind[i] < maxlen )
+		{
+			cv_mesh.assign_node(2*i+1, gyral_mesh2->vertices[elist[i]]);
+			cv_mesh.assign_normal(2*i+1, gyral_mesh2->normals[elist[i]]);
+			avg_t += mind[i];
+			std_t += mind[i]*mind[i];
+			++navg;
+		}
+		else
+		{
+			cv_mesh.assign_node(2*i+1, gyral_mesh2->vertices[i]);
+			cv_mesh.assign_normal(2*i+1, gyral_mesh2->normals[i]);
+		}
+		cv_mesh.assign_polygon(i, 2*i, 2*i+1, 0);
+	}
+
+	float std_dev= sqrt(fabs(std_t-avg_t*avg_t/(float)navg)/((float)navg-1.0));
+	float avg = avg_t/navg;
+	cout << "Dot method avg=" << avg << " std dev=" << std_dev << " num pnts=" << navg << endl;
+
+	if ( outname.length() > 0 )
+		filename = outname + "_width.mesh";
+	else
+		filename = gyral_name + "_width.mesh";
+	cv_mesh.Write((char*)filename.c_str());
+
+////////////////////////////// Method 2 ///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+/// Step 6 - Find appropriate vertices in gyral skeleton
+
+	// find bounding box of gyrus
+	gyral_mesh.calc_limits();
+	float xmin = gyral_mesh.xmin;
+	float ymin = gyral_mesh.ymin;
+	float xmax = gyral_mesh.xmax;
+	float ymax = gyral_mesh.ymax;
+	float zmin = gyral_mesh.zmin;
+	float zmax = gyral_mesh.zmax;
+
+	// find vertices in skeleton mesh that are in bounding box
+	vertex *slist = new vertex[skel_mesh.v_size]; // list of possible vertices
+	vertex *nlist = new vertex[skel_mesh.v_size]; // list of possible vertices
+	int nsvert = 0;; // number of skeleton vertices in bounding box
+	for ( int i=0 ; i<skel_mesh.v_size ; ++i)
+	{
+		Point p = skel_mesh.vertices[i].pnt;
+		if ( p.x > xmin && p.x < xmax && p.y > ymin && p.y < ymax
+				&& p.z > zmin && p.z < zmax )
+		{
+			nlist[nsvert] = skel_mesh.normals[i];
+			slist[nsvert++] = skel_mesh.vertices[i];  // we found one
+		}
+	}
+
+///////////////////////////////////////////////////////////////////////////////
+/// Step 7 - Use normals from skeleton mesh polygons in bounding box to
+/// intersect opposing polygons in gyral mesh.
+
+	maxlen = 12;
+	float *tval = new float[nsvert];
+	Point *pntsp = new Point[nsvert];
+	Point *pntsn = new Point[nsvert];
+	Point *norsp = new Point[nsvert];
+	Point *norsn = new Point[nsvert];
+
+	// populate the thickness map with ERRVAL as default value
+	for ( int i=0 ; i<nsvert ; ++i ) tval[i] = ERRVAL;
+
+	// work from skeleton to gyral mesh
+	int nfound = 0;
+	int cnt=0;
+	for ( int i=0 ; i<nsvert ; ++i )
+	{
+		// skip if vertex labeled as not to use
+		if ( slist[i].label == 1 )
+			continue;
+
+		Point p0,pp,pn;	// line normal to vertex
+		Vector n0;	// normals from vertex and opposing polygon
+
+		p0 = slist[i].pnt;
+		n0 = nlist[i].pnt;
+
+		// make a long line in the direction of the normal
+		pp.x = p0.x + maxlen*n0.x; // add normal to vertex to get line
+		pp.y = p0.y + maxlen*n0.y;
+		pp.z = p0.z + maxlen*n0.z;
+
+		// make a long line in the opposite direction of the normal
+		pn.x = p0.x - maxlen*n0.x; // subtract normal to vertex to get line
+		pn.y = p0.y - maxlen*n0.y;
+		pn.z = p0.z - maxlen*n0.z;
+
+		// test against all polygons in the gyral mesh
+		// to find the closest inner polygon
+		Point t0,t1,t2;
+		Vector tn0,tn1,tn2,tna; // normals
+		float d0,d1,d2;
+
+		// find distance in positive direction
+		float indist=ERRVAL;
+		bool foundp = false;
+		Point inpntp;
+		Point innorp;
+		for ( int j=0 ; j<gyral_mesh.p_size ; ++j )
+		{
+			// see if the line intersects the plane of the current polygon
+			// skip if it does not
+			t0 = gyral_mesh.vertices[gyral_mesh.polygons[j].vidx[0]].pnt;
+			t1 = gyral_mesh.vertices[gyral_mesh.polygons[j].vidx[1]].pnt;
+			t2 = gyral_mesh.vertices[gyral_mesh.polygons[j].vidx[2]].pnt;
+
+			tn0 = gyral_mesh.normals[gyral_mesh.polygons[j].vidx[0]].pnt;
+			tn1 = gyral_mesh.normals[gyral_mesh.polygons[j].vidx[1]].pnt;
+			tn2 = gyral_mesh.normals[gyral_mesh.polygons[j].vidx[2]].pnt;
+
+			// get average normals
+			tna = tn0 + tn1 + tn2;
+			//tna.add(tn1);
+			//tna.add(tn2);
+			tna.Normalize();
+
+			// make sure that our average normal is pointing the in the opposite
+			// direction of our test point
+			float dprod = tna.Dot(n0);
+			if ( dprod < 0.75 )
+				continue;
+
+			// skip if any of the triangle points are our current vertex
+			if ( (d0=dist(p0,t0)) < 0.1 ) continue;
+			if ( (d1=dist(p0,t1)) < 0.1 ) continue;
+			if ( (d2=dist(p0,t2)) < 0.1 ) continue;
+
+			// skip if all vertices are out of search distance
+			if ( d0>maxlen && d1>maxlen && d2>maxlen ) continue;
+
+			// get equation of plane of triangle
+			float	a,b,c,d;	// coefficients of plane equation
+			equ_plane(t0,t1,t2,&a,&b,&c,&d);
+
+			// if no intersection of line with plane then skip
+			Point pint;
+			if ( !line_intersect_plane(a,b,c,d,p0,pp,&pint) )
+				continue;
+
+			// see if intersection point lines not within triangle then skip
+			if ( !inside_triangle(t0,t1,t2,pint) )
+				continue;
+
+			// compare the distance to the current min wm distance
+			d = dist(pint,p0);
+			if ( d==0 )
+				continue;
+
+			if ( d < indist ) // we found a point
+			{
+				indist = d;
+				inpntp = pint;
+				innorp = tna;
+				foundp = true;
+				++cnt;
+			}
+
+		}
+
+		// find distance in positive direction
+		if ( !foundp )
+			continue;
+
+		indist=ERRVAL;
+		bool foundn = false;
+		Point inpntn;
+		Point innorn;
+		for ( int j=0 ; j<gyral_mesh.p_size ; ++j )
+		{
+			// see if the line intersects the plane of the current polygon
+			// skip if it does not
+			t0 = gyral_mesh.vertices[gyral_mesh.polygons[j].vidx[0]].pnt;
+			t1 = gyral_mesh.vertices[gyral_mesh.polygons[j].vidx[1]].pnt;
+			t2 = gyral_mesh.vertices[gyral_mesh.polygons[j].vidx[2]].pnt;
+
+			tn0 = gyral_mesh.normals[gyral_mesh.polygons[j].vidx[0]].pnt;
+			tn1 = gyral_mesh.normals[gyral_mesh.polygons[j].vidx[1]].pnt;
+			tn2 = gyral_mesh.normals[gyral_mesh.polygons[j].vidx[2]].pnt;
+
+			// get average normals
+			tna = tn0 + tn1 + tn2;
+			//tna.add(tn1);
+			//tna.add(tn2);
+			tna.Normalize();
+
+			// make sure that our average normal is pointing the in the opposite
+			// direction of our test point
+			float dprod = tna.Dot(n0);
+			if ( dprod > -0.75 )
+				continue;
+
+			// skip if any of the triangle points are our current vertex
+			if ( (d0=dist(p0,t0)) < 0.1 ) continue;
+			if ( (d1=dist(p0,t1)) < 0.1 ) continue;
+			if ( (d2=dist(p0,t2)) < 0.1 ) continue;
+
+			// skip if all vertices are out of search distance
+			if ( d0>maxlen && d1>maxlen && d2>maxlen ) continue;
+
+			// get equation of plane of triangle
+			float	a,b,c,d;	// coefficients of plane equation
+			equ_plane(t0,t1,t2,&a,&b,&c,&d);
+
+			// if no intersection of line with plane then skip
+			Point pint;
+			if ( !line_intersect_plane(a,b,c,d,p0,pn,&pint) )
+				continue;
+
+			// see if intersection point lines not within triangle then skip
+			if ( !inside_triangle(t0,t1,t2,pint) )
+				continue;
+
+			// compare the distance to the current min wm distance
+			d = dist(pint,p0);
+			if ( d==0 )
+				continue;
+
+			if ( d < indist ) // we found a point
+			{
+				indist = d;
+				inpntn = pint;
+				innorn = tna;
+				foundn = true;
+				++cnt;
+			}
+
+		}
+
+		if ( foundp && foundn )
+		{
+			// assign distance for vertex
+			float dd = dist(inpntp,inpntn);
+
+			if (dd < maxlen)
+			{
+				tval[nfound] = dd;
+				pntsp[nfound] = inpntp;
+				pntsn[nfound] = inpntn;
+				norsp[nfound] = innorp;
+				norsn[nfound] = innorn;
+				++nfound;
+			}
+		}
+
+	}
+
+	// make a mesh showing connecting lines
+	int svpoly_size = nfound;
+	RicMesh sv_mesh(2*svpoly_size, 2*svpoly_size, svpoly_size, 2);
+
+	// populate mesh with short vectors using gm mesh points
+	avg_t = std_t = 0;
+	for ( int i=0 ; i<svpoly_size ; ++i )
+	{
+		sv_mesh.assign_node(2*i, pntsp[i]);
+		sv_mesh.assign_normal(2*i, norsp[i]);
+		sv_mesh.assign_node(2*i+1, pntsn[i]);
+		sv_mesh.assign_normal(2*i+1, norsn[i]);
+		sv_mesh.assign_polygon(i, 2*i, 2*i+1, 0);
+		avg_t += tval[i];
+		std_t += tval[i]*tval[i];
+	}
+
+	std_dev= sqrt(fabs(std_t-avg_t*avg_t/(float)nfound)/((float)nfound-1.0));
+	avg = avg_t/nfound;
+	cout << "Skel method avg=" << avg << " std dev=" << std_dev << " num pnts=" << nfound << endl;
+
+	if ( outname.length() > 0 )
+		filename = outname + "_skel.mesh";
+	else
+		filename = gyral_name + "_skel.mesh";
+	sv_mesh.Write((char*)filename.c_str());
+
+
+///////////////////////////////////////////////////////////////////////////////
+/// Step 4 - output line as a mesh
+	cout << "the end" << endl;
+	return EXIT_SUCCESS;
+}
+
+
+/*!
+Write out the control points in Anatomist mesh format
+filename - output file name
+ */
+void WriteLineAsMesh(vertex *lpnts, int npnts, string filename)
+{
+	// create the file in the BV mesh format
+	ofstream fout(filename.c_str());
+	fout<<"ascii"<<endl;
+	fout<<"VOID"<<endl;
+	fout<<2<<endl;	// dim 2 is a line
+	fout<<1<<endl<<0<<endl; // only one timestep
+
+	// output curve vertex points
+	fout<<npnts<<endl;
+	for (int i=0;i<npnts;i++)
+		fout<<"("<<lpnts[i].pnt.x<<", "<<lpnts[i].pnt.y<<", "<<lpnts[i].pnt.z<<") ";
+
+	// zero is size for normals
+	fout<<endl<<0<<endl;
+
+	// zero is size for texture
+	fout<<0<<endl;
+
+	// polygon size is npnts-1
+	int p_size = npnts-1;
+	fout<<p_size<<endl;
+
+	for (int i=0;i<p_size;i++)
+		fout<<"("<< i <<" ,"<< i+1 <<") ";
+
+	fout << endl;
+
+	fout.close();
+}
+
+// Function to check for an unshared edge in a polygon
+int CheckForUnsharedEdge(RicMesh *m, int pidx, int eflag, int *i0, int *i1)
+{
+	bool shared = false;
+	int v0, v1;
+
+	// check first edge
+	if ( eflag & EDGE0 )
+	{
+		v0 = m->polygons[pidx].vidx[0];
+		v1 = m->polygons[pidx].vidx[1];
+		*i0 = v0;
+		*i1 = v1;
+		for ( int i=0 ; i<m->p_size ; ++i )
+		{
+			if ( i == pidx ) continue; // skip current polygon
+			//if ( m->polygons[i].labeled && EDGE0 ) continue; // skip if edge used
+
+			int vcnt = 0;
+			for ( int j=0 ; j<3 ; ++j )
+			{
+				if ( m->polygons[i].vidx[j] == v0 ) ++vcnt;
+				if ( m->polygons[i].vidx[j] == v1 ) ++vcnt;
+			}
+
+			// if we find the two vertices then the edge is shared
+			if ( vcnt >= 2 )
+			{
+				return 0;
+			}
+		}
+
+		// if not shared then we have found it
+		if ( !shared )
+		{
+			return EDGE0;
+		}
+	}
+
+	if ( eflag & EDGE1 )
+	{
+		v0 = m->polygons[pidx].vidx[1];
+		v1 = m->polygons[pidx].vidx[2];
+		*i0 = v0;
+		*i1 = v1;
+		for ( int i=0 ; i<m->p_size ; ++i )
+		{
+			if ( i == pidx ) continue; // skip current polygon
+			//if ( m->polygons[i].labeled && EDGE1 ) continue; // skip if edge used
+
+			int vcnt = 0;
+			for ( int j=0 ; j<3 ; ++j )
+			{
+				if ( m->polygons[i].vidx[j] == v0 ) ++vcnt;
+				if ( m->polygons[i].vidx[j] == v1 ) ++vcnt;
+			}
+
+			// if we find the two vertices then the edge is shared
+			if ( vcnt >= 2 )
+			{
+				return 0;
+			}
+		}
+		// if not shared then we have found it
+		if ( !shared )
+		{
+			return EDGE1;
+		}
+	}
+
+	if ( eflag & EDGE2 )
+	{
+		v0 = m->polygons[pidx].vidx[2];
+		v1 = m->polygons[pidx].vidx[0];
+		*i0 = v0;
+		*i1 = v1;
+		for ( int i=0 ; i<m->p_size ; ++i )
+		{
+			if ( i == pidx ) continue; // skip current polygon
+			//if ( m->polygons[i].labeled && EDGE2 ) continue; // skip if edge used
+
+			int vcnt = 0;
+			for ( int j=0 ; j<3 ; ++j )
+			{
+				if ( m->polygons[i].vidx[j] == v0 ) ++vcnt;
+				if ( m->polygons[i].vidx[j] == v1 ) ++vcnt;
+			}
+
+			// if we find the two vertices then the edge is shared
+			if ( vcnt >= 2 )
+			{
+				return 0;
+			}
+		}
+		// if not shared then we have found it
+		if ( !shared )
+		{
+			return EDGE2;
+		}
+	}
+
+	return 0;
+
+}
+
+void ShrinkMesh(RicMesh *mesh)
+{
+	for ( int i=0 ; i<mesh->v_size ; ++i )
+	{
+		mesh->vertices[i].subtract(mesh->normals[i]);
+	}
+}
+

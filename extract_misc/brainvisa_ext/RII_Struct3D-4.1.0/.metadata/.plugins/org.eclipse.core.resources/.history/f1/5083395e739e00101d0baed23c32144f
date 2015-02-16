@@ -1,0 +1,7 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+USER_OBJS :=
+
+LIBS := -lRicVolume -lRicMesh -lRicCurve -lRicUtil -lsisl_opt -lNemaVolume -lniftiio -lznz -lz

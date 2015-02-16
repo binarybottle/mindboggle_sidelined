@@ -1,0 +1,15 @@
+
+**** Rebuild of configuration Debug for project RicCorticalThicknessByNormal ****
+
+**** Internal Builder is used for build               ****
+g++ -I/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include -O0 -g3 -Wall -c -fmessage-length=0 -pthread -osrc/RicCortialThicknessByNormal.o ../src/RicCortialThicknessByNormal.cpp
+In file included from /LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/SwitchArg.h:30:0,
+                 from /LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/CmdLine.h:27,
+                 from ../src/RicCortialThicknessByNormal.cpp:68:
+/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/Arg.h:31:0: warning: "HAVE_SSTREAM" redefined
+/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/config.h:17:0: note: this is the location of the previous definition
+g++ -I/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include -O0 -g3 -Wall -c -fmessage-length=0 -pthread -osrc/TexFill.o ../src/TexFill.cpp
+g++ -I/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include -O0 -g3 -Wall -c -fmessage-length=0 -pthread -osrc/GM_Normal.o ../src/GM_Normal.cpp
+g++ -L/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/lib -static -pthread -oRicCorticalThicknessByNormal src/TexFill.o src/RicCortialThicknessByNormal.o src/GM_Normal.o -lRicMeshd -lRicUtild
+Build complete for project RicCorticalThicknessByNormal
+Time consumed: 4554  ms.  

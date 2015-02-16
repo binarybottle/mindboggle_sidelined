@@ -1,0 +1,24 @@
+src/ricmeshbuild.d src/ricmeshbuild.o: ../src/ricmeshbuild.cpp \
+ ../../include/RicUtil.h ../../include/RicPoint.h \
+ ../../include/RicMatrix.h ../../RicMesh/src/RicMeshSet.h \
+ ../../RicMesh/src/RicMesh.h ../../RicMesh/src/RicTextureSet.h \
+ ../../RicMesh/src/RicTexture.h ../../include/RicVolume.h \
+ ../../include/RicUtil.h
+
+../../include/RicUtil.h:
+
+../../include/RicPoint.h:
+
+../../include/RicMatrix.h:
+
+../../RicMesh/src/RicMeshSet.h:
+
+../../RicMesh/src/RicMesh.h:
+
+../../RicMesh/src/RicTextureSet.h:
+
+../../RicMesh/src/RicTexture.h:
+
+../../include/RicVolume.h:
+
+../../include/RicUtil.h:

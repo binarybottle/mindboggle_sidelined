@@ -1,0 +1,14 @@
+
+**** Rebuild of configuration Debug for project RicSulcalSpan ****
+
+**** Internal Builder is used for build               ****
+g++ -I/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include -O0 -g3 -Wall -c -fmessage-length=0 -osrc/RicSulcalSpan.o ../src/RicSulcalSpan.cpp
+In file included from /LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/SwitchArg.h:30:0,
+                 from /LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/CmdLine.h:27,
+                 from ../src/RicSulcalSpan.cpp:74:
+/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/Arg.h:31:0: warning: "HAVE_SSTREAM" redefined
+/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/config.h:17:0: note: this is the location of the previous definition
+g++ -I/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include -O0 -g3 -Wall -c -fmessage-length=0 -osrc/SulcalRayTracer.o ../src/SulcalRayTracer.cpp
+g++ -L/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/lib -oRicSulcalSpan src/SulcalRayTracer.o src/RicSulcalSpan.o -lRicMeshd -lRicGraphd -lRicUtild
+Build complete for project RicSulcalSpan
+Time consumed: 3577  ms.  

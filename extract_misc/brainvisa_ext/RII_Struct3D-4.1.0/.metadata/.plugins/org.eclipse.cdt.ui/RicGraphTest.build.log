@@ -1,0 +1,14 @@
+
+**** Build of configuration Debug for project RicGraphTest ****
+
+make all 
+Building file: ../src/RicGraphTest.cpp
+Invoking: GCC C++ Compiler
+g++ -I"/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/RicGraph/src" -I"/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/RicGraphTest.d" -MT"src/RicGraphTest.d" -o"src/RicGraphTest.o" "../src/RicGraphTest.cpp"
+Finished building: ../src/RicGraphTest.cpp
+ 
+Building target: RicGraphTest
+Invoking: GCC C++ Linker
+g++ -L"/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/RicGraph/Debug" -o"RicGraphTest"  ./src/RicGraphTest.o   -lRicGraphd
+Finished building target: RicGraphTest
+ 

@@ -1,0 +1,8 @@
+src/RicUtil.d src/RicUtil.o: ../src/RicUtil.cpp ../src/RicUtil.h \
+ ../src/RicPoint.h ../src/RicMatrix.h
+
+../src/RicUtil.h:
+
+../src/RicPoint.h:
+
+../src/RicMatrix.h:

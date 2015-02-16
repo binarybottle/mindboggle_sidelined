@@ -1,0 +1,10 @@
+
+**** Rebuild of configuration Debug for project RicVolumeTest ****
+
+**** Internal Builder is used for build               ****
+g++ -I../../RicVolume/src -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -osrc/RicVolumeTest.o ../src/RicVolumeTest.cpp
+../src/RicVolumeTest.cpp: In function ‘int main(int, char**)’:
+../src/RicVolumeTest.cpp:25:13: warning: unused variable ‘zvol’
+g++ -L/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/RicVolume/Debug -L/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/NemaVolume/Debug -L../../lib -oRicVolumeTest src/RicVolumeTest.o -lRicVolumed -lNemaVolumed -lRicUtild -lniftiiod -lznzd -lz
+Build complete for project RicVolumeTest
+Time consumed: 976  ms.  

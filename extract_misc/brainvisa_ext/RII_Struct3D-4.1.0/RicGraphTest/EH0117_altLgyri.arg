@@ -1,0 +1,193 @@
+# graph 1.0
+
+*BEGIN GRAPH RoiArg
+boundingbox_max 255 255 255
+boundingbox_min 0 0 0
+voxel_size      1 1 1
+filename_base   EH0117_altLgyri.data
+roi.global.bck  roi roi_Bucket.bck roi_label
+roi.global.tri  roi patch.mesh Tmtktri_label
+type.global.bck roi.global.bck
+type.global.tri roi.global.tri
+
+*BEGIN NODE roi 1
+name          Pre-Central_left
+Tmtktri_label 1
+index         10
+roi_label     11
+size          42121
+surface_area  11537.5
+*END
+
+*BEGIN NODE roi 2
+name          Post-Central_left
+Tmtktri_label 2
+index         11
+roi_label     12
+size          34019
+surface_area  11406.7
+*END
+
+*BEGIN NODE roi 3
+name          gyrus10_left
+Tmtktri_label 3
+index         9
+roi_label     10
+size          17386
+surface_area  6951.75
+*END
+
+*BEGIN NODE roi 4
+name          Temporal-Middle_left
+Tmtktri_label 4
+index         16
+roi_label     17
+size          47104
+surface_area  12385.4
+*END
+
+*BEGIN NODE roi 5
+name          gyrus15_left
+Tmtktri_label 5
+index         12
+roi_label     13
+size          10322
+surface_area  5370.93
+*END
+
+*BEGIN NODE roi 6
+name          Temporal-Superior_left
+Tmtktri_label 6
+index         7
+roi_label     8
+size          28879
+surface_area  6682.91
+*END
+
+*BEGIN NODE roi 7
+name          Lingual_left
+Tmtktri_label 7
+index         2
+roi_label     3
+size          15596
+surface_area  5224.93
+*END
+
+*BEGIN NODE roi 8
+name          Orbital_left
+Tmtktri_label 8
+index         14
+roi_label     15
+size          23337
+surface_area  5366.31
+*END
+
+*BEGIN NODE roi 9
+name          background
+Tmtktri_label 9
+index         0
+surface_area  2163.99
+*END
+
+*BEGIN NODE roi 10
+name          gyrus20_left
+Tmtktri_label 10
+index         8
+roi_label     9
+size          52924
+surface_area  10912
+*END
+
+*BEGIN NODE roi 11
+name          Temporal-Inferior_left
+Tmtktri_label 11
+index         15
+roi_label     16
+size          28149
+surface_area  5975.38
+*END
+
+*BEGIN NODE roi 12
+name          gyrus12_left
+Tmtktri_label 12
+index         3
+roi_label     4
+size          20610
+surface_area  4733.12
+*END
+
+*BEGIN NODE roi 13
+name          gyrus19_left
+Tmtktri_label 13
+index         4
+roi_label     5
+size          1988
+surface_area  320.889
+*END
+
+*BEGIN NODE roi 14
+name          unknown
+Tmtktri_label 14
+index         18
+*END
+
+*BEGIN NODE roi 15
+name      label_100
+roi_label 100
+*END
+
+*BEGIN NODE roi 16
+name          Cuneus_left
+Tmtktri_label 15
+index         17
+roi_label     18
+size          41839
+surface_area  14560.6
+*END
+
+*BEGIN NODE roi 17
+name          Frontal-Superior_left
+Tmtktri_label 16
+index         1
+roi_label     2
+size          32633
+surface_area  7306.7
+*END
+
+*BEGIN NODE roi 18
+name          gyrus14_left
+Tmtktri_label 17
+index         0
+roi_label     1
+size          28776
+surface_area  6136.36
+*END
+
+*BEGIN NODE roi 19
+name          Frontal-Middle_left
+Tmtktri_label 18
+index         13
+roi_label     14
+size          32148
+surface_area  8203.21
+*END
+
+*BEGIN NODE roi 20
+name          gyrus8_left
+Tmtktri_label 19
+index         5
+roi_label     6
+size          41230
+surface_area  13726.4
+*END
+
+*BEGIN NODE roi 21
+name          Frontal-Inferior_left
+Tmtktri_label 20
+index         6
+roi_label     7
+size          40235
+surface_area  8543.5
+*END
+
+*END

@@ -1,0 +1,28 @@
+How to Rename DummyProject
+
+First, it is useful to rename the project to avoid problems occurring with 
+every project being named projwithvolclass.
+
+Step 1. 
+
+In the Project Explorer, right click on DummyProject and select Team ->
+Disconnect. You want to delete the metafile directories.
+
+Step 2.
+
+In the Project Explorer, right click on DummyProject and select rename. 
+Enter a name descriptive of the project.
+
+Step 3.
+
+Right click on the project name and select properties. In the dialog select
+C/C++ Build -> Settings -> Build Artifact. Change the artifact name from
+DummyProject to the same name that you used for the project. Do this for
+both Debug and Release versions.
+
+Step 4.
+
+In the Project Explorer under src, rename DummyProject.cpp to the same name
+you used for the project.
+
+At this point you should be good to go to edit your new project.

@@ -1,0 +1,13 @@
+src/RicMesh.d src/RicMesh.o: ../src/RicMesh.cpp ../src/RicMesh.h \
+ ../../include/RicUtil.h ../../include/RicPoint.h \
+ ../../include/RicMatrix.h ../src/RicMeshSet.h
+
+../src/RicMesh.h:
+
+../../include/RicUtil.h:
+
+../../include/RicPoint.h:
+
+../../include/RicMatrix.h:
+
+../src/RicMeshSet.h:

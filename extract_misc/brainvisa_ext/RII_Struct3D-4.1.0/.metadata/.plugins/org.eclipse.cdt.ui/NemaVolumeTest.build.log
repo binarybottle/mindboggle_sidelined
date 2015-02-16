@@ -1,0 +1,20 @@
+
+**** Rebuild of configuration Debug for project NemaVolumeTest ****
+
+**** Internal Builder is used for build               ****
+****  WARNING: The "Debug" Configuration may not build  ****
+****  because it uses the "MinGW GCC"  ****
+****  tool-chain that is unsupported on this system.  ****
+
+****  Attempting to build...  **** 
+
+g++ -I/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/NemaVolume/src -I/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include -O0 -g3 -Wall -c -fmessage-length=0 -osrc/NemaVolumeTest.o ../src/NemaVolumeTest.cpp
+In file included from ../src/NemaVolumeTest.cpp:14:0:
+/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/NemaVolume/src/nemardr.h:231:21: warning: multi-line comment
+/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/NemaVolume/src/nemardr.h:331:2: warning: multi-line comment
+../src/NemaVolumeTest.cpp: In function ‘int main(int, char**)’:
+../src/NemaVolumeTest.cpp:22:43: warning: deprecated conversion from string constant to ‘char*’
+../src/NemaVolumeTest.cpp:32:37: warning: deprecated conversion from string constant to ‘char*’
+g++ -L/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/NemaVolume/Debug -oNemaVolumeTest src/NemaVolumeTest.o -lNemaVolumed
+Build complete for project NemaVolumeTest
+Time consumed: 902  ms.  

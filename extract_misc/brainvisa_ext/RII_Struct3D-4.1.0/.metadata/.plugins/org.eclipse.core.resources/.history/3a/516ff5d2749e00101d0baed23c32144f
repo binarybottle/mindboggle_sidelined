@@ -1,0 +1,16 @@
+src/RicCurveTest.d src/RicCurveTest.o: ../src/RicCurveTest.cpp \
+ ../../include/RicCurve.h ../../include/RicUtil.h \
+ ../../include/RicPoint.h ../../include/RicMatrix.h \
+ ../../include/sisl/sisl.h ../../include/RicUtil.h
+
+../../include/RicCurve.h:
+
+../../include/RicUtil.h:
+
+../../include/RicPoint.h:
+
+../../include/RicMatrix.h:
+
+../../include/sisl/sisl.h:
+
+../../include/RicUtil.h:

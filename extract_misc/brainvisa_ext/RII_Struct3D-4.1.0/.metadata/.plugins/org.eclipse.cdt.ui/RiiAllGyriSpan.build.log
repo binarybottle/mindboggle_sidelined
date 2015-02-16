@@ -1,0 +1,14 @@
+
+**** Rebuild of configuration Debug for project RiiAllGyriSpan ****
+
+**** Internal Builder is used for build               ****
+g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -pthread -osrc/RiiAllGyriSpan.o ../src/RiiAllGyriSpan.cpp
+In file included from ../../include/tclap/SwitchArg.h:30:0,
+                 from ../../include/tclap/CmdLine.h:27,
+                 from ../src/RiiAllGyriSpan.cpp:67:
+../../include/tclap/Arg.h:31:0: warning: "HAVE_SSTREAM" redefined
+../../include/tclap/config.h:17:0: note: this is the location of the previous definition
+g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -pthread -osrc/Gyral_Normal.o ../src/Gyral_Normal.cpp
+g++ -L../../lib -static -pthread -oRiiAllGyriSpan src/RiiAllGyriSpan.o src/Gyral_Normal.o -lRicMeshd -lRicUtild
+Build complete for project RiiAllGyriSpan
+Time consumed: 2986  ms.  

@@ -1,0 +1,13 @@
+
+**** Rebuild of configuration Debug for project RiiExportMesh2Stl ****
+
+**** Internal Builder is used for build               ****
+g++ -I/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include -O0 -g3 -Wall -c -fmessage-length=0 -osrc/RiiExportMesh2Stl.o ../src/RiiExportMesh2Stl.cpp
+In file included from /LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/SwitchArg.h:30:0,
+                 from /LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/CmdLine.h:27,
+                 from ../src/RiiExportMesh2Stl.cpp:29:
+/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/Arg.h:31:0: warning: "HAVE_SSTREAM" redefined
+/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/tclap/config.h:17:0: note: this is the location of the previous definition
+g++ -L/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/lib -oRiiExportMesh2Stl src/RiiExportMesh2Stl.o -lRicMeshd -lRicUtild
+Build complete for project RiiExportMesh2Stl
+Time consumed: 2208  ms.  

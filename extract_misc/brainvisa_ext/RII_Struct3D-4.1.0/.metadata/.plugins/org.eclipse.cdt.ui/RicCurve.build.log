@@ -1,0 +1,17 @@
+
+**** Build of configuration Debug for project RicCurve ****
+
+make all 
+Building file: ../src/RicCurve.cpp
+Invoking: GCC C++ Compiler
+g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/RicCurve.d" -MT"src/RicCurve.d" -o"src/RicCurve.o" "../src/RicCurve.cpp"
+../src/RicCurve.cpp: In member function ‘void RicCurve::WriteCurveGo(std::string)’:
+../src/RicCurve.cpp:269:40: warning: suggest parentheses around comparison in operand of ‘&’
+Finished building: ../src/RicCurve.cpp
+ 
+Building target: libRicCurved.a
+Invoking: GCC Archiver
+ar -r "libRicCurved.a"  ./src/RicCurve.o   
+ar: creating libRicCurved.a
+Finished building target: libRicCurved.a
+ 

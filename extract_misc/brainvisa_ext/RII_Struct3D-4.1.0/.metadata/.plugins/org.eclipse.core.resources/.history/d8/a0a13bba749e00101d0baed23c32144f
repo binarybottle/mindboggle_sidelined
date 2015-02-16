@@ -1,0 +1,13 @@
+src/RicCurve.d src/RicCurve.o: ../src/RicCurve.cpp ../src/RicCurve.h \
+ ../../include/RicUtil.h ../../include/RicPoint.h \
+ ../../include/RicMatrix.h ../../include/sisl/sisl.h
+
+../src/RicCurve.h:
+
+../../include/RicUtil.h:
+
+../../include/RicPoint.h:
+
+../../include/RicMatrix.h:
+
+../../include/sisl/sisl.h:

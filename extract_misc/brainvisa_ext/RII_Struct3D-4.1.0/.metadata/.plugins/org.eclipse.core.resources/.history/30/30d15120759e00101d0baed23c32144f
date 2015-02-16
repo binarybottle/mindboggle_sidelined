@@ -1,0 +1,33 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+CPP_SRCS += \
+../src/RicMesh.cpp \
+../src/RicMeshSet.cpp \
+../src/RicTexture.cpp \
+../src/RicTextureSet.cpp 
+
+OBJS += \
+./src/RicMesh.o \
+./src/RicMeshSet.o \
+./src/RicTexture.o \
+./src/RicTextureSet.o 
+
+CPP_DEPS += \
+./src/RicMesh.d \
+./src/RicMeshSet.d \
+./src/RicTexture.d \
+./src/RicTextureSet.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+src/%.o: ../src/%.cpp
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C++ Compiler'
+	g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+

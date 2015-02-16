@@ -1,0 +1,20 @@
+
+**** Build of configuration Debug for project RicMeshTest ****
+
+make all 
+Building file: ../src/ricmeshbuild.cpp
+Invoking: GCC C++ Compiler
+g++ -I../../RicMesh/src -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/ricmeshbuild.d" -MT"src/ricmeshbuild.d" -o"src/ricmeshbuild.o" "../src/ricmeshbuild.cpp"
+../src/ricmeshbuild.cpp: In function ‘int main(int, char**)’:
+../src/ricmeshbuild.cpp:25:33: warning: deprecated conversion from string constant to ‘char*’
+../src/ricmeshbuild.cpp:59:27: warning: NULL used in arithmetic
+../src/ricmeshbuild.cpp:76:28: warning: NULL used in arithmetic
+../src/ricmeshbuild.cpp:95:42: warning: deprecated conversion from string constant to ‘char*’
+../src/ricmeshbuild.cpp:120:48: warning: deprecated conversion from string constant to ‘char*’
+Finished building: ../src/ricmeshbuild.cpp
+ 
+Building target: RicMeshTest
+Invoking: GCC C++ Linker
+g++ -L../../RicMesh/Debug -L../../lib -o"RicMeshTest"  ./src/ricmeshbuild.o   -lRicMeshd -lRicUtild -lNemaVolumed
+Finished building target: RicMeshTest
+ 

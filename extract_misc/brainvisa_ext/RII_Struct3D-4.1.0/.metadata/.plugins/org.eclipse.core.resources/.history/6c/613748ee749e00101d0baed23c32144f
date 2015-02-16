@@ -1,0 +1,24 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+CPP_SRCS += \
+../src/RicGraphTest.cpp 
+
+OBJS += \
+./src/RicGraphTest.o 
+
+CPP_DEPS += \
+./src/RicGraphTest.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+src/%.o: ../src/%.cpp
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C++ Compiler'
+	g++ -I"/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/RicGraph/src" -I"/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+

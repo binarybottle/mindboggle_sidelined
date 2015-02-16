@@ -1,0 +1,15 @@
+src/RicGraph.d src/RicGraph.o: ../src/RicGraph.cpp ../src/RicGraphNode.h \
+ /LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/RicUtil.h \
+ /LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/RicPoint.h \
+ /LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/RicMatrix.h \
+ ../src/RicGraph.h
+
+../src/RicGraphNode.h:
+
+/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/RicUtil.h:
+
+/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/RicPoint.h:
+
+/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include/RicMatrix.h:
+
+../src/RicGraph.h:

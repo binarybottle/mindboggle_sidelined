@@ -1,0 +1,14 @@
+
+**** Rebuild of configuration Debug for project RicSulcalDepth ****
+
+**** Internal Builder is used for build               ****
+g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -osrc/RicSulcalDepth.o ../src/RicSulcalDepth.cpp
+In file included from ../../include/tclap/SwitchArg.h:30:0,
+                 from ../../include/tclap/CmdLine.h:27,
+                 from ../src/RicSulcalDepth.cpp:58:
+../../include/tclap/Arg.h:31:0: warning: "HAVE_SSTREAM" redefined
+../../include/tclap/config.h:17:0: note: this is the location of the previous definition
+g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -osrc/SucalDepthUtil.o ../src/SucalDepthUtil.cpp
+g++ -L../../lib -static -oRicSulcalDepth src/SucalDepthUtil.o src/RicSulcalDepth.o -lRicVolumed -lRicMeshd -lRicCurved -lRicUtild -lsisl_nopt -lNemaVolume -lniftiio -lznz -lz
+Build complete for project RicSulcalDepth
+Time consumed: 4569  ms.  

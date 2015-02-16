@@ -1,0 +1,130 @@
+# graph 1.0
+
+*BEGIN GRAPH RoiArg
+boundingbox_max 154 224 137
+boundingbox_min 82 68 31
+voxel_size      1 1 1
+filename_base   PH0040_Lgyri_default_session_auto.data
+roi.tri         roi Tmtktri_filename
+type.tri        roi.tri
+
+*BEGIN NODE roi 1
+name             Cuneus_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_0
+roi_label        1
+surface_area     8960.22
+*END
+
+*BEGIN NODE roi 2
+name             Pre-Central_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_1
+roi_label        11
+surface_area     5189.86
+*END
+
+*BEGIN NODE roi 3
+name             gyrus8_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_2
+roi_label        7
+surface_area     5802.66
+*END
+
+*BEGIN NODE roi 4
+name             Post-Central_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_3
+roi_label        12
+surface_area     2933.85
+*END
+
+*BEGIN NODE roi 5
+name             Frontal-Superior_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_4
+roi_label        3
+surface_area     2667.44
+*END
+
+*BEGIN NODE roi 6
+name             gyrus14_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_5
+roi_label        2
+surface_area     7632.27
+*END
+
+*BEGIN NODE roi 7
+name             Frontal-Middle_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_6
+roi_label        13
+surface_area     2492.62
+*END
+
+*BEGIN NODE roi 8
+name             background
+Tmtktri_filename Tmtktri_Mesh_1253644690_7
+roi_label        0
+surface_area     4094.61
+*END
+
+*BEGIN NODE roi 9
+name             Frontal-Inferior_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_8
+roi_label        8
+surface_area     2129.66
+*END
+
+*BEGIN NODE roi 10
+name             Temporal-Middle_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_9
+roi_label        16
+surface_area     3333.8
+*END
+
+*BEGIN NODE roi 11
+name             Temporal-Superior_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_10
+roi_label        9
+surface_area     2829.77
+*END
+
+*BEGIN NODE roi 12
+name             gyrus10_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_11
+roi_label        10
+surface_area     1496.63
+*END
+
+*BEGIN NODE roi 13
+name             Lingual_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_12
+roi_label        4
+surface_area     5943.35
+*END
+
+*BEGIN NODE roi 14
+name             Temporal-Inferior_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_13
+roi_label        15
+surface_area     4618.78
+*END
+
+*BEGIN NODE roi 15
+name             gyrus19_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_14
+roi_label        6
+surface_area     2199.23
+*END
+
+*BEGIN NODE roi 16
+name             Orbital_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_15
+roi_label        14
+surface_area     2441.39
+*END
+
+*BEGIN NODE roi 17
+name             gyrus12_left
+Tmtktri_filename Tmtktri_Mesh_1253644690_16
+roi_label        5
+surface_area     1833.07
+*END
+
+*END

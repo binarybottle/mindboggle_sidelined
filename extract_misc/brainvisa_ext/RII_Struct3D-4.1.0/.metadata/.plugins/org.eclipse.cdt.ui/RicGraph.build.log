@@ -1,0 +1,20 @@
+
+**** Build of configuration Debug for project RicGraph ****
+
+make all 
+Building file: ../src/RicGraph.cpp
+Invoking: GCC C++ Compiler
+g++ -I"/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/RicGraph.d" -MT"src/RicGraph.d" -o"src/RicGraph.o" "../src/RicGraph.cpp"
+Finished building: ../src/RicGraph.cpp
+ 
+Building file: ../src/RicGraphNode.cpp
+Invoking: GCC C++ Compiler
+g++ -I"/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/include" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/RicGraphNode.d" -MT"src/RicGraphNode.d" -o"src/RicGraphNode.o" "../src/RicGraphNode.cpp"
+Finished building: ../src/RicGraphNode.cpp
+ 
+Building target: libRicGraphd.a
+Invoking: GCC Archiver
+ar -r "libRicGraphd.a"  ./src/RicGraph.o ./src/RicGraphNode.o   
+ar: creating libRicGraphd.a
+Finished building target: libRicGraphd.a
+ 

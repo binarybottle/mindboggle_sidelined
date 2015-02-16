@@ -1,0 +1,13 @@
+
+**** Rebuild of configuration Debug for project RiiSulcalLength ****
+
+**** Internal Builder is used for build               ****
+g++ -I../../include -I../../../jama -O0 -g3 -Wall -c -fmessage-length=0 -osrc/RiiSulcalLength.o ../src/RiiSulcalLength.cpp
+In file included from ../../include/tclap/SwitchArg.h:30:0,
+                 from ../../include/tclap/CmdLine.h:27,
+                 from ../src/RiiSulcalLength.cpp:89:
+../../include/tclap/Arg.h:31:0: warning: "HAVE_SSTREAM" redefined
+../../include/tclap/config.h:17:0: note: this is the location of the previous definition
+g++ -L../../lib -oRiiSulcalLength src/RiiSulcalLength.o -lRicVolumed -lRicMeshd -lRicGraphd -lRicCurved -lRicUtild -lNemaVolumed -lniftiiod -lsisl_nopt -lznzd -lzd
+Build complete for project RiiSulcalLength
+Time consumed: 2623  ms.  

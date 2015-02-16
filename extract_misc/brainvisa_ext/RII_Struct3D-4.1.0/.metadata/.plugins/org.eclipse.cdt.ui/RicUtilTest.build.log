@@ -1,0 +1,14 @@
+
+**** Build of configuration Debug for project RicUtilTest ****
+
+make all 
+Building file: ../src/RicUtilTest.cpp
+Invoking: GCC C++ Compiler
+g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/RicUtilTest.d" -MT"src/RicUtilTest.d" -o"src/RicUtilTest.o" "../src/RicUtilTest.cpp"
+Finished building: ../src/RicUtilTest.cpp
+ 
+Building target: RicUtilTest
+Invoking: GCC C++ Linker
+g++ -L../../RicUtil/Debug -static -o"RicUtilTest"  ./src/RicUtilTest.o   -lRicUtild
+Finished building target: RicUtilTest
+ 

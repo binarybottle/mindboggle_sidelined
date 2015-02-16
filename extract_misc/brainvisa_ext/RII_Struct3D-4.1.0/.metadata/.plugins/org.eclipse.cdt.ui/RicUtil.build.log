@@ -1,0 +1,15 @@
+
+**** Build of configuration Debug for project RicUtil ****
+
+make all 
+Building file: ../src/RicUtil.cpp
+Invoking: GCC C++ Compiler
+g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/RicUtil.d" -MT"src/RicUtil.d" -o"src/RicUtil.o" "../src/RicUtil.cpp"
+Finished building: ../src/RicUtil.cpp
+ 
+Building target: libRicUtild.a
+Invoking: GCC Archiver
+ar -r "libRicUtild.a"  ./src/RicUtil.o   
+ar: creating libRicUtild.a
+Finished building target: libRicUtild.a
+ 

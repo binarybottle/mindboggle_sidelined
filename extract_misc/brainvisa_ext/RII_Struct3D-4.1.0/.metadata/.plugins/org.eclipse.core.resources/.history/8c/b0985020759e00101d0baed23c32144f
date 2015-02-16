@@ -1,0 +1,13 @@
+src/RicTexture.d src/RicTexture.o: ../src/RicTexture.cpp \
+ ../../include/RicUtil.h ../../include/RicPoint.h \
+ ../../include/RicMatrix.h ../src/RicTexture.h ../src/RicTextureSet.h
+
+../../include/RicUtil.h:
+
+../../include/RicPoint.h:
+
+../../include/RicMatrix.h:
+
+../src/RicTexture.h:
+
+../src/RicTextureSet.h:

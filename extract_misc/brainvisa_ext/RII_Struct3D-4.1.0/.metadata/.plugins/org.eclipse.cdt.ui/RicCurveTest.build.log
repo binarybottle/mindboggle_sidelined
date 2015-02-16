@@ -1,0 +1,14 @@
+
+**** Build of configuration Debug for project RicCurveTest ****
+
+make all 
+Building file: ../src/RicCurveTest.cpp
+Invoking: GCC C++ Compiler
+g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/RicCurveTest.d" -MT"src/RicCurveTest.d" -o"src/RicCurveTest.o" "../src/RicCurveTest.cpp"
+Finished building: ../src/RicCurveTest.cpp
+ 
+Building target: RicCurveTest
+Invoking: GCC C++ Linker
+g++ -L"/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/RicCurve/Debug" -L"/LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0/lib" -static -o"RicCurveTest"  ./src/RicCurveTest.o   -lRicCurved -lRicUtil -lsisl_opt
+Finished building target: RicCurveTest
+ 

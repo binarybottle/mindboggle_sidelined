@@ -1,0 +1,11 @@
+
+**** Rebuild of configuration Debug for project RicVolume ****
+
+**** Internal Builder is used for build               ****
+g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -osrc/RicVolume.o ../src/RicVolume.cpp
+g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -osrc/NiftiOrientConvert.o ../src/NiftiOrientConvert.cpp
+g++ -I../../include -O0 -g3 -Wall -c -fmessage-length=0 -osrc/RicVolumeSet.o ../src/RicVolumeSet.cpp
+ar -r libRicVolumed.a src/RicVolumeSet.o src/RicVolume.o src/NiftiOrientConvert.o
+/usr/bin/ar: creating libRicVolumed.a
+Build complete for project RicVolume
+Time consumed: 2084  ms.  

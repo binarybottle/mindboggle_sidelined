@@ -1,0 +1,9 @@
+src/RicUtilTest.d src/RicUtilTest.o: ../src/RicUtilTest.cpp \
+ ../../include/RicUtil.h ../../include/RicPoint.h \
+ ../../include/RicMatrix.h
+
+../../include/RicUtil.h:
+
+../../include/RicPoint.h:
+
+../../include/RicMatrix.h:

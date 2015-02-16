@@ -1,0 +1,209 @@
+!SESSION 2011-06-24 09:56:26.679 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os linux -ws gtk -arch x86 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.jface 2 0 2011-06-24 09:56:47.479
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-06-24 09:56:47.479
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(com.python.pydev.analysis.actions.pyGlobalsBrowserWorkbench,Python Show Class Browser,
+		Show Class Browser,
+		Category(org.python.pydev.ui.category.source,PyDev - Editor,PyDev editor category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SESSION 2011-06-24 10:02:37.880 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -product org.eclipse.epp.package.cpp.product -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os linux -ws gtk -arch x86 -product org.eclipse.epp.package.cpp.product -product org.eclipse.epp.package.cpp.product -data /LocalHome/rogers_data0/LocalDevelop/RIIStruct3D-4.1.0 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.jface 2 0 2011-06-24 10:02:42.647
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-06-24 10:02:42.647
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(com.python.pydev.analysis.actions.pyGlobalsBrowserWorkbench,Python Show Class Browser,
+		Show Class Browser,
+		Category(org.python.pydev.ui.category.source,PyDev - Editor,PyDev editor category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:03:42.169
+!MESSAGE Indexed 'DummyProject' (1 sources, 231 headers) in 8.89 sec: 17,578 declarations; 30,695 references; 0 unresolved inclusions; 0 syntax errors; 207 unresolved names (0.43%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:04:21.037
+!MESSAGE Indexed 'NemaVolume' (0 sources, 96 headers) in 1.16 sec: 2,242 declarations; 2,386 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:04:43.567
+!MESSAGE Indexed 'NemaVolumeTest' (1 sources, 174 headers) in 3.72 sec: 11,091 declarations; 15,987 references; 0 unresolved inclusions; 0 syntax errors; 84 unresolved names (0.31%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:04:47.551
+!MESSAGE Indexed 'RicCorticalThicknessByNormal' (0 sources, 96 headers) in 1.30 sec: 2,242 declarations; 2,386 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:05:01.242
+!MESSAGE Indexed 'RicCurve' (0 sources, 96 headers) in 0.73 sec: 2,242 declarations; 2,386 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:05:08.354
+!MESSAGE Indexed 'RicCurveTest' (0 sources, 96 headers) in 0.66 sec: 2,242 declarations; 2,386 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:05:22.962
+!MESSAGE Indexed 'RicExportMeshPoints' (1 sources, 231 headers) in 7.28 sec: 17,586 declarations; 30,762 references; 0 unresolved inclusions; 0 syntax errors; 207 unresolved names (0.43%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:05:30.880
+!MESSAGE Indexed 'RicGraph' (2 sources, 189 headers) in 4.05 sec: 12,423 declarations; 20,488 references; 0 unresolved inclusions; 0 syntax errors; 137 unresolved names (0.41%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:05:37.720
+!MESSAGE Indexed 'RicGraphTest' (1 sources, 185 headers) in 3.28 sec: 11,953 declarations; 19,192 references; 0 unresolved inclusions; 0 syntax errors; 137 unresolved names (0.44%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:06:05.844
+!MESSAGE Indexed 'RicGyralSpan' (1 sources, 235 headers) in 7.17 sec: 17,959 declarations; 31,994 references; 0 unresolved inclusions; 0 syntax errors; 205 unresolved names (0.41%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:06:18.665
+!MESSAGE Indexed 'RicGyrificationIndex' (1 sources, 240 headers) in 5.27 sec: 18,803 declarations; 32,084 references; 0 unresolved inclusions; 0 syntax errors; 207 unresolved names (0.41%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:06:30.874
+!MESSAGE Indexed 'RicMesh' (4 sources, 205 headers) in 5.00 sec: 15,927 declarations; 29,155 references; 0 unresolved inclusions; 0 syntax errors; 155 unresolved names (0.34%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:06:31.842
+!MESSAGE Indexed 'RicMeshTest' (1 sources, 14 headers) in 0.34 sec: 132 declarations; 182 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:06:45.997
+!MESSAGE Indexed 'RicSulcalDepth' (2 sources, 234 headers) in 6.54 sec: 19,570 declarations; 32,787 references; 0 unresolved inclusions; 0 syntax errors; 207 unresolved names (0.39%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:06:57.305
+!MESSAGE Indexed 'RicSulcalSpan' (2 sources, 239 headers) in 5.61 sec: 18,170 declarations; 33,002 references; 0 unresolved inclusions; 0 syntax errors; 207 unresolved names (0.40%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:06:59.172
+!MESSAGE Indexed 'RicUtil' (1 sources, 112 headers) in 0.98 sec: 4,198 declarations; 8,300 references; 0 unresolved inclusions; 0 syntax errors; 17 unresolved names (0.14%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:07:15.152
+!MESSAGE Indexed 'RicUtilTest' (0 sources, 13 headers) in 0.11 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:07:16.629
+!MESSAGE Indexed 'RicVolume' (0 sources, 96 headers) in 1.07 sec: 2,242 declarations; 2,386 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:08:10.684
+!MESSAGE Indexed 'RicVolumeConvert' (0 sources, 96 headers) in 0.84 sec: 2,242 declarations; 2,386 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:08:36.420
+!MESSAGE Indexed 'RicVolumeTest' (1 sources, 191 headers) in 4.14 sec: 12,971 declarations; 19,121 references; 0 unresolved inclusions; 0 syntax errors; 101 unresolved names (0.31%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:08:49.303
+!MESSAGE Indexed 'RiiAllGyriSpan' (2 sources, 237 headers) in 6.07 sec: 18,163 declarations; 33,412 references; 0 unresolved inclusions; 0 syntax errors; 164 unresolved names (0.32%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:08:59.160
+!MESSAGE Indexed 'RiiExportMesh2Stl' (1 sources, 232 headers) in 4.76 sec: 17,842 declarations; 31,186 references; 0 unresolved inclusions; 0 syntax errors; 207 unresolved names (0.42%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2011-06-24 10:09:09.178
+!MESSAGE Indexed 'RiiSulcalLength' (1 sources, 244 headers) in 5.16 sec: 20,922 declarations; 34,016 references; 0 unresolved inclusions; 0 syntax errors; 205 unresolved names (0.37%)
+!SESSION 2011-06-24 10:55:59.422 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os linux -ws gtk -arch x86 -product org.eclipse.epp.package.cpp.product -data /LocalHome/rogers_data0/LocalDevelop/RII_Struct3D-4.1.0 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.jface 2 0 2011-06-24 10:56:04.270
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-06-24 10:56:04.270
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(com.python.pydev.analysis.actions.pyGlobalsBrowserWorkbench,Python Show Class Browser,
+		Show Class Browser,
+		Category(org.python.pydev.ui.category.source,PyDev - Editor,PyDev editor category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SESSION 2011-06-24 13:14:58.639 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os linux -ws gtk -arch x86 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.jface 2 0 2011-06-24 13:15:11.426
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-06-24 13:15:11.426
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(com.python.pydev.analysis.actions.pyGlobalsBrowserWorkbench,Python Show Class Browser,
+		Show Class Browser,
+		Category(org.python.pydev.ui.category.source,PyDev - Editor,PyDev editor category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SESSION 2011-06-24 13:50:58.908 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os linux -ws gtk -arch x86 -product org.eclipse.epp.package.cpp.product -data /LocalHome/rogers_data0/LocalDevelop/RII_Struct3D-4.1.0 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.jface 2 0 2011-06-24 13:51:03.760
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2011-06-24 13:51:03.760
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(com.python.pydev.analysis.actions.pyGlobalsBrowserWorkbench,Python Show Class Browser,
+		Show Class Browser,
+		Category(org.python.pydev.ui.category.source,PyDev - Editor,PyDev editor category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
